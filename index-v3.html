@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aqueo — Engineered Water Storage &amp; Treatment Infrastructure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-950: #050E1D;
+      --navy-900: #0A192F;
+      --navy-800: #112645;
+      --cobalt: #0052CC;
+      --cobalt-hover: #003E9C;
+      --aqua: #00A3E0;
+      --white: #FFFFFF;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --slate-900: #0F172A;
+      --max: 1240px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--white);
+      color: var(--slate-600);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* TOP NAVIGATION BAR */
+    header.topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(5, 14, 29, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .topbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .brand-logo-svg {
+      width: 36px;
+      height: 36px;
+      display: block;
+    }
+
+    .brand-wordmark {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .brand-sub {
+      display: block;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--aqua);
+      margin-top: 3px;
+      line-height: 1;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 18px;
+    }
+
+    .nav-links > li {
+      position: relative;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #CBD5E1;
+      padding: 8px 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.18s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: -12px;
+      min-width: 256px;
+      background: var(--navy-900);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      padding: 8px;
+      list-style: none;
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.45);
+    }
+
+    .nav-links > li:hover .dropdown {
+      display: block;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 13.5px;
+      color: #E2E8F0;
+    }
+
+    .dropdown a:hover {
+      background: rgba(0, 163, 224, 0.16);
+      color: var(--aqua);
+    }
+
+    .btn-quote {
+      background: var(--aqua);
+      color: var(--navy-950) !important;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 11px 20px;
+      border-radius: 7px;
+      white-space: nowrap;
+      transition: background 0.18s ease, transform 0.15s ease;
+    }
+
+    .btn-quote:hover {
+      background: #38BDF8;
+      transform: translateY(-1px);
+    }
+
+    /* FULL-SCREEN HERO BANNER */
+    .hero {
+      min-height: calc(100vh - 78px);
+      display: flex;
+      align-items: center;
+      padding: 64px 0;
+      background:
+        radial-gradient(circle at 82% 24%, rgba(0, 163, 224, 0.22), transparent 44%),
+        radial-gradient(circle at 18% 85%, rgba(0, 82, 204, 0.25), transparent 48%),
+        linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 58%, var(--navy-800) 100%);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.06fr 0.94fr;
+      gap: 56px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 163, 224, 0.14);
+      border: 1px solid rgba(0, 163, 224, 0.42);
+      color: #7DD3FC;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(2.7rem, 4.9vw, 4.15rem);
+      line-height: 1.04;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      color: var(--aqua);
+    }
+
+    .hero-lead {
+      font-size: 1.12rem;
+      color: #CBD5E1;
+      max-width: 540px;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-primary-aqua {
+      background: var(--aqua);
+      color: var(--navy-950);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 15px 28px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 28px rgba(0, 163, 224, 0.28);
+      transition: background 0.18s ease, transform 0.15s ease;
+    }
+
+    .btn-primary-aqua:hover {
+      background: #38BDF8;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline-dark {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 15px 24px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.18s ease;
+    }
+
+    .btn-outline-dark:hover {
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    /* BRANDED ENGINEERED SHOWCASE + SWAPPABLE IMAGE FRAME */
+    .hero-card {
+      background: rgba(10, 25, 47, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 28px 64px rgba(0, 0, 0, 0.45);
+    }
+
+    .hero-stage {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: linear-gradient(155deg, #09172B 0%, #102B52 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-stage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .engineered-graphic {
+      width: 100%;
+      height: 100%;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .graphic-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7DD3FC;
+    }
+
+    .graphic-tag {
+      background: rgba(0, 163, 224, 0.18);
+      border: 1px solid rgba(0, 163, 224, 0.35);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .tank-svg-wrap {
+      margin: auto;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .graphic-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #94A3B8;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 12px;
+    }
+
+    .hero-card-bar {
+      padding: 16px 22px;
+      background: #061020;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #CBD5E1;
+    }
+
+    /* LIGHT ARCHITECTURAL SECTIONS */
+    .band-white {
+      padding: 88px 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .band-slate {
+      padding: 88px 0;
+      background: var(--slate-100);
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .eyebrow {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--cobalt);
+      margin-bottom: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 20px;
+      height: 3px;
+      background: var(--aqua);
+      border-radius: 2px;
+    }
+
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 44px;
+    }
+
+    .section-title {
+      color: var(--slate-900);
+      font-size: clamp(2rem, 3.3vw, 2.7rem);
+      line-height: 1.1;
+      max-width: 620px;
+    }
+
+    .section-note {
+      max-width: 430px;
+      color: var(--slate-600);
+      margin: 0;
+    }
+
+    /* 4 METRICS BAR */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .metric-card {
+      background: var(--white);
+      border: 1px solid var(--slate-200);
+      border-top: 4px solid var(--cobalt);
+      border-radius: 12px;
+      padding: 26px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+    }
+
+    .metric-card:nth-child(even) {
+      border-top-color: var(--aqua);
+    }
+
+    .metric-val {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.15;
+    }
+
+    .metric-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--cobalt);
+      margin-top: 8px;
+    }
+
+    .metric-desc {
+      font-size: 13.5px;
+      color: var(--slate-600);
+      margin: 6px 0 0 0;
+    }
+
+    /* INTERACTIVE SYSTEM EXPLORER */
+    .tabs-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .tab-btn {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: 1px solid var(--slate-200);
+      background: var(--white);
+      color: var(--slate-900);
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--navy-900);
+      color: var(--white);
+      border-color: var(--navy-900);
+      box-shadow: 0 8px 20px rgba(10, 25, 47, 0.18);
+    }
+
+    .tab-panel {
+      display: none;
+      background: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      padding: 40px;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: center;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.05);
+    }
+
+    .tab-panel.active {
+      display: grid;
+    }
+
+    .spec-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 24px 0;
+    }
+
+    .spec-badge {
+      background: var(--slate-100);
+      border: 1px solid var(--slate-200);
+      color: var(--slate-900);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    .panel-visual {
+      aspect-ratio: 16 / 10;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--navy-900) 0%, var(--cobalt) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .panel-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .panel-visual-overlay {
+      padding: 28px;
+      color: var(--white);
+      width: 100%;
+    }
+
+    .btn-cobalt {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cobalt);
+      color: var(--white);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14.5px;
+      font-weight: 700;
+      padding: 13px 24px;
+      border-radius: 8px;
+      transition: background 0.18s ease;
+    }
+
+    .btn-cobalt:hover {
+      background: var(--cobalt-hover);
+    }
+
+    /* QUOTE & SCOPE SECTION */
+    .quote-shell {
+      background: var(--navy-900);
+      border-radius: 18px;
+      padding: 48px;
+      color: var(--white);
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 44px;
+      align-items: start;
+      box-shadow: 0 24px 54px rgba(5, 14, 29, 0.22);
+    }
+
+    .quote-shell h2 {
+      color: var(--white);
+      font-size: 2.1rem;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .quote-points {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 0 0;
+    }
+
+    .quote-points li {
+      padding: 14px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .quote-points strong {
+      display: block;
+      color: var(--white);
+      font-size: 15px;
+    }
+
+    .quote-points span {
+      color: #CBD5E1;
+      font-size: 13.5px;
+    }
+
+    .form-card {
+      background: var(--white);
+      color: var(--slate-900);
+      border-radius: 14px;
+      padding: 30px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate-900);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14.5px;
+      color: var(--slate-900);
+      background: var(--slate-50);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--cobalt);
+      background: var(--white);
+    }
+
+    .status-msg {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      color: #065F46;
+      font-size: 13.5px;
+    }
+
+    /* DARK CORPORATE FOOTER */
+    footer {
+      background: var(--navy-950);
+      color: var(--slate-400);
+      padding: 56px 0 40px 0;
+      border-top: 3px solid var(--aqua);
+      font-size: 14px;
+    }
+
+    .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-nav a {
+      color: #E2E8F0;
+    }
+
+    .footer-nav a:hover {
+      color: var(--aqua);
+    }
+
+    .footer-bottom {
+      padding-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .hero-grid, .tab-panel.active, .quote-shell { grid-template-columns: 1fr; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .hero { min-height: auto; padding: 48px 0; }
+    }
+
+    @media (max-width: 640px) {
+      .container, .topbar-inner { padding: 0 20px; }
+      .metrics-grid, .form-grid { grid-template-columns: 1fr; }
+      .quote-shell, .tab-panel { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HIGH-CONTRAST NAVY TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="brand" aria-label="Aqueo Home">
+        <svg class="brand-logo-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="2" width="32" height="32" rx="8" fill="#00A3E0"/>
+          <path d="M18 8C18 8 11.5 16 11.5 21C11.5 24.6 14.4 27.5 18 27.5C21.6 27.5 24.5 24.6 24.5 21C24.5 16 18 8 18 8Z" fill="#050E1D"/>
+          <path d="M13 21.5H23" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <span class="brand-wordmark">aqueo</span>
+          <span class="brand-sub">Water Infrastructure</span>
+        </div>
+      </a>
+
+      <nav class="nav" aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li>
+            <a href="products.html">Products &#9662;</a>
+            <ul class="dropdown">
+              <li><a href="zincalume-tanks.html">Zincalume Water Storage Tanks</a></li>
+              <li><a href="smc-frp-tanks.html">SMC / FRP Panel Tanks</a></li>
+              <li><a href="ms-frp-tanks.html">MS / FRP Storage Tanks</a></li>
+              <li><a href="water-treatment-plants.html">Water Treatment Plants</a></li>
+              <li><a href="sewage-treatment-plants.html">Sewage Treatment Plants</a></li>
+              <li><a href="industrial-ro-systems.html">Industrial RO Systems</a></li>
+            </ul>
+          </li>
+          <li><a href="solutions.html">Solutions</a></li>
+          <li><a href="industries.html">Industries</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="#quote-section" class="btn-quote">Request a Quote</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- FULL-SCREEN HIGH-CONTRAST HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="hero-pill">Pre-Engineered Water Infrastructure</span>
+          <h1>Water Storage <span>Built Fast.</span></h1>
+          <p class="hero-lead">
+            Concrete tanks stall launches for months. Aqueo delivers bolted modular storage tanks and treatment systems erected in days—with single-team accountability from site check to handover.
+          </p>
+          <div class="hero-actions">
+            <a href="#quote-section" class="btn-primary-aqua">Request a Quote &rarr;</a>
+            <a href="#system-explorer" class="btn-outline-dark">Explore Systems</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="hero-stage">
+            <img src="assets/home-hero.jpg" alt="Aqueo modular bolted tank system" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="engineered-graphic" style="display:flex;">
+              <div class="graphic-header">
+                <span>AQUEO MODULAR CONTAINMENT</span>
+                <span class="graphic-tag">50 – 2,000+ KL</span>
+              </div>
+
+              <div class="tank-svg-wrap">
+                <svg viewBox="0 0 360 190" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Bolted Tank Schematic">
+                  <rect x="44" y="156" width="272" height="12" rx="4" fill="#1E3A5F" stroke="#00A3E0" stroke-width="1.5"/>
+                  <rect x="64" y="38" width="232" height="118" rx="4" fill="#0D2544" stroke="#38BDF8" stroke-width="2"/>
+                  <line x1="64" y1="62" x2="296" y2="62" stroke="#1E4976" stroke-width="2"/>
+                  <line x1="64" y1="86" x2="296" y2="86" stroke="#1E4976" stroke-width="2"/>
+                  <line x1="64" y1="110" x2="296" y2="110" stroke="#1E4976" stroke-width="2"/>
+                  <line x1="64" y1="134" x2="296" y2="134" stroke="#1E4976" stroke-width="2"/>
+                  <rect x="66" y="76" width="228" height="78" fill="rgba(0, 163, 224, 0.22)"/>
+                  <rect x="174" y="28" width="12" height="128" rx="2" fill="#FFFFFF"/>
+                  <polygon points="168,94 174,90 174,98" fill="#00A3E0"/>
+                  <rect x="86" y="50" width="68" height="24" rx="4" fill="#FFFFFF"/>
+                  <text x="97" y="66" fill="#050E1D" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="13">aqueo</text>
+                </svg>
+              </div>
+
+              <div class="graphic-footer">
+                <span>Zincalume &bull; SMC/FRP &bull; MS/FRP</span>
+                <span>Swappable slot: assets/home-hero.jpg</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-card-bar">
+            <span><strong>80%</strong> Modular Water Tanks</span>
+            <span><strong>20%</strong> WTP &bull; STP &bull; RO &bull; AMC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 KEY METRICS -->
+  <section class="band-slate" style="padding: 56px 0;">
+    <div class="container">
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-val">Days, Not Months</div>
+          <div class="metric-label">Rapid Site Erection</div>
+          <p class="metric-desc">Eliminate concrete curing waits holding up Fire-NOC or plant launch.</p>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">10–2,000+ KL</div>
+          <div class="metric-label">Scalable Capacities</div>
+          <p class="metric-desc">Engineered for rooftops, industrial fire reserves &amp; CSR rollouts.</p>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">Zero Leakage</div>
+          <div class="metric-label">Corrosion-Ready Build</div>
+          <p class="metric-desc">Zincalume steel, SMC/FRP panels &amp; heavy-duty reinforced liners.</p>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">1 Partner</div>
+          <div class="metric-label">Supply to AMC Care</div>
+          <p class="metric-desc">Sizing, erection, hydro-testing, leak repairs &amp; scheduled upkeep.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE CAPABILITY & PRODUCT EXPLORER -->
+  <section class="band-white" id="system-explorer">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Interactive System Selector</span>
+          <h2 class="section-title">Right System for Every Site.</h2>
+        </div>
+        <p class="section-note">
+          Switch between our three core lines below to compare timelines, site fit, and specifications.
+        </p>
+      </div>
+
+      <div class="tabs-bar" role="tablist">
+        <button class="tab-btn active" onclick="switchTab(event, 'tab-zincalume')">01. Zincalume Bolted Tanks</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-smc')">02. SMC / FRP Panel Tanks</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab-treatment')">03. MS/FRP, Treatment &amp; AMC</button>
+      </div>
+
+      <!-- TAB 1 -->
+      <div id="tab-zincalume" class="tab-panel active">
+        <div>
+          <span class="eyebrow">Primary Storage Line &bull; High Capacity</span>
+          <h3 style="font-size: 1.85rem; color: var(--slate-900); margin-bottom: 12px;">Zincalume Water Storage Tanks</h3>
+          <p style="margin: 0;">
+            Factory-formed Zincalume steel shells bolted cleanly on site with reinforced liners—built for Fire-NOC compliance, industrial raw water reserves, and multi-village CSR storage hubs.
+          </p>
+          <div class="spec-badges">
+            <span class="spec-badge">50 KL – 2,000+ KL</span>
+            <span class="spec-badge">10–14 Day Erection</span>
+            <span class="spec-badge">Relocatable Modular Shell</span>
+          </div>
+          <a href="zincalume-tanks.html" class="btn-cobalt">Explore Zincalume Tanks &rarr;</a>
+        </div>
+        <div class="panel-visual">
+          <img src="assets/product-zincalume.jpg" alt="Zincalume Water Storage Tank" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+          <div class="panel-visual-overlay" style="display:none;">
+            <span style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#7DD3FC;">BULK STORAGE &bull; LINE 01</span>
+            <h4 style="color:#FFFFFF; font-size:1.5rem; margin-top:6px;">Bolted Zincalume Tanks</h4>
+            <p style="color:#CBD5E1; font-size:14px; margin:8px 0 0 0;">Swappable visual slot: place photo at <code>assets/product-zincalume.jpg</code></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2 -->
+      <div id="tab-smc" class="tab-panel">
+        <div>
+          <span class="eyebrow">Modular Sectional Panels</span>
+          <h3 style="font-size: 1.85rem; color: var(--slate-900); margin-bottom: 12px;">SMC / FRP Panel Tanks</h3>
+          <p style="margin: 0;">
+            Hot-pressed corrosion-proof panels assembled piece-by-piece inside tight basements, rooftops, and commercial shafts where heavy cranes cannot reach.
+          </p>
+          <div class="spec-badges">
+            <span class="spec-badge">10 KL – 500+ KL</span>
+            <span class="spec-badge">Zero Rust &amp; Hygienic</span>
+            <span class="spec-badge">Rooftop &amp; Basement Ready</span>
+          </div>
+          <a href="smc-frp-tanks.html" class="btn-cobalt">Explore SMC / FRP Tanks &rarr;</a>
+        </div>
+        <div class="panel-visual" style="background: linear-gradient(135deg, #061224 0%, #0D9488 100%);">
+          <img src="assets/product-smc-frp.jpg" alt="SMC / FRP Panel Tank" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+          <div class="panel-visual-overlay" style="display:none;">
+            <span style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#99F6E4;">SECTIONAL PANELS &bull; LINE 02</span>
+            <h4 style="color:#FFFFFF; font-size:1.5rem; margin-top:6px;">SMC / FRP Panel Tanks</h4>
+            <p style="color:#E2E8F0; font-size:14px; margin:8px 0 0 0;">Swappable visual slot: place photo at <code>assets/product-smc-frp.jpg</code></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3 -->
+      <div id="tab-treatment" class="tab-panel">
+        <div>
+          <span class="eyebrow">20% Quality &amp; Lifecycle Care</span>
+          <h3 style="font-size: 1.85rem; color: var(--slate-900); margin-bottom: 12px;">MS/FRP, WTP, STP, RO &amp; AMC</h3>
+          <p style="margin: 0;">
+            Complete your site water loop with MS/FRP vessels, leak-proof tank liners, compact WTP/STP/Industrial RO systems, and scheduled AMC maintenance under one accountable partner.
+          </p>
+          <div class="spec-badges">
+            <span class="spec-badge">WTP &bull; STP &bull; Industrial RO</span>
+            <span class="spec-badge">Liner Retrofits</span>
+            <span class="spec-badge">Annual Maintenance (AMC)</span>
+          </div>
+          <a href="solutions.html" class="btn-cobalt">See Solutions &amp; Care &rarr;</a>
+        </div>
+        <div class="panel-visual" style="background: linear-gradient(135deg, #0A192F 0%, #1E40AF 100%);">
+          <img src="assets/product-ms-frp.jpg" alt="Water Treatment and Lifecycle Care" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+          <div class="panel-visual-overlay" style="display:none;">
+            <span style="font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#93C5FD;">QUALITY &amp; CARE &bull; LINE 03</span>
+            <h4 style="color:#FFFFFF; font-size:1.5rem; margin-top:6px;">Treatment &amp; Lifecycle Care</h4>
+            <p style="color:#CBD5E1; font-size:14px; margin:8px 0 0 0;">Swappable visual slot: place photo at <code>assets/product-ms-frp.jpg</code></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGH-CONTRAST QUOTE & BOQ SECTION -->
+  <section class="band-slate" id="quote-section" style="border-bottom:none;">
+    <div class="container">
+      <div class="quote-shell">
+        <div>
+          <span class="hero-pill" style="margin-bottom:14px;">Direct Engineering Desk</span>
+          <h2>Scope Your Requirement.</h2>
+          <p style="color:#CBD5E1; margin:0;">
+            Share your capacity, application, and location. We help match the right storage tank or treatment system and send a clear budgetary BOQ.
+          </p>
+          <ul class="quote-points">
+            <li>
+              <strong>Rapid Technical Match</strong>
+              <span>Right tank type, footprint check &amp; civil foundation guidance.</span>
+            </li>
+            <li>
+              <strong>Single-Partner Accountability</strong>
+              <span>From supply and erection to hydro-testing and AMC care.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="form-card">
+          <form id="home-quote-form" onsubmit="handleQuoteSubmit(event)">
+            <div class="form-grid">
+              <div class="field">
+                <label for="q-name">Your Name *</label>
+                <input id="q-name" name="name" type="text" required placeholder="Full name" />
+              </div>
+              <div class="field">
+                <label for="q-org">Company / Organization *</label>
+                <input id="q-org" name="organization" type="text" required placeholder="Organization name" />
+              </div>
+              <div class="field">
+                <label for="q-phone">Phone / WhatsApp *</label>
+                <input id="q-phone" name="phone" type="tel" required placeholder="+91 XXXXX XXXXX" />
+              </div>
+              <div class="field">
+                <label for="q-email">Work Email *</label>
+                <input id="q-email" name="email" type="email" required placeholder="name@company.com" />
+              </div>
+              <div class="field">
+                <label for="q-system">System Type</label>
+                <select id="q-system" name="system">
+                  <option>Zincalume Water Storage Tank</option>
+                  <option>SMC / FRP Panel Tank</option>
+                  <option>MS / FRP Tank / Liner Retrofit</option>
+                  <option>Water / Sewage / RO System</option>
+                  <option>Installation / Repair / AMC</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="q-cap">Capacity &amp; Location *</label>
+                <input id="q-cap" name="capacity_location" type="text" required placeholder="e.g., 250 KL, Gurugram" />
+              </div>
+              <div class="field full">
+                <label for="q-notes">Timeline &amp; Site Notes</label>
+                <textarea id="q-notes" name="notes" rows="3" placeholder="Fire-NOC target date, rooftop/ground placement, or CSR rollout details..."></textarea>
+              </div>
+              <div class="field full">
+                <button type="submit" class="btn-cobalt" style="border:none; cursor:pointer; justify-content:center; width:100%;">Request a Quote &rarr;</button>
+                <div id="quote-status" class="status-msg"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK CORPORATE FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <a href="index.html" class="brand" aria-label="Aqueo Home">
+          <svg class="brand-logo-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="2" width="32" height="32" rx="8" fill="#00A3E0"/>
+            <path d="M18 8C18 8 11.5 16 11.5 21C11.5 24.6 14.4 27.5 18 27.5C21.6 27.5 24.5 24.6 24.5 21C24.5 16 18 8 18 8Z" fill="#050E1D"/>
+            <path d="M13 21.5H23" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <span class="brand-wordmark">aqueo</span>
+            <span class="brand-sub">Water Infrastructure</span>
+          </div>
+        </a>
+        <div class="footer-nav">
+          <a href="about.html">About</a>
+          <a href="products.html">Products</a>
+          <a href="solutions.html">Solutions</a>
+          <a href="industries.html">Industries</a>
+          <a href="projects.html">Projects</a>
+          <a href="services.html">Services</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Aqueo. All rights reserved.</span>
+        <span>Modular Water Storage &bull; Treatment &bull; Lifecycle Care</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function switchTab(e, panelId) {
+      var btns = document.querySelectorAll('.tab-btn');
+      var panels = document.querySelectorAll('.tab-panel');
+      btns.forEach(function(b) { b.classList.remove('active'); });
+      panels.forEach(function(p) { p.classList.remove('active'); });
+      e.currentTarget.classList.add('active');
+      document.getElementById(panelId).classList.add('active');
+    }
+
+    function handleQuoteSubmit(e) {
+      e.preventDefault();
+      var name = document.getElementById('q-name').value.trim();
+      var cap = document.getElementById('q-cap').value.trim();
+      var box = document.getElementById('quote-status');
+      box.style.display = 'block';
+      box.textContent = 'Requirement noted for ' + name + ' (' + cap + '). Connect your form endpoint when publishing live to receive inquiries directly by email.';
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>
