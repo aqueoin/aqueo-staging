@@ -9,40 +9,28 @@
                     this.classList.add('is-loaded');
                 }, false);
             }
-        }</script><script>document.addEventListener('DOMContentLoaded', function() {
-  var hdr = document.querySelector('header.header, .header');
-  var site = document.querySelector('.aq-site');
-  if (hdr && site) {
-    var hdrBottom = hdr.getBoundingClientRect().bottom;
-    var siteTop = site.getBoundingClientRect().top;
-    var gap = siteTop - hdrBottom;
-    if (gap > 2) {
-      site.style.marginTop = '-' + Math.round(gap) + 'px';
-    }
-  }
-  var themeFooters = document.querySelectorAll('footer:not(.aq-footer)');
-  themeFooters.forEach(function(f) { f.style.display = 'none'; });
-});
+        }</script><script>(function() {
+  function syncFooterLogo() {
+    var headerLogo = document.querySelector('header.header img, .header img, .logo img');
+    var footerLogos = document.querySelectorAll('.aq-footer img');
+    if (!headerLogo || !footerLogos.length) return;
 
-function aqQuoteSubmit(ev) {
-  ev.preventDefault();
-  var n = document.getElementById('aq_q_name').value;
-  var l = document.getElementById('aq_q_loc').value;
-  var s = document.getElementById('aq_q_status');
-  if (s) {
-    s.style.display = 'block';
-    s.textContent = 'Requirement noted for ' + n + ' (' + l + '). Connect your form handler for live email delivery.';
+    var resolvedSrc = headerLogo.currentSrc || headerLogo.src || '/aqueo-staging/media/website/responsive/aqueo-logo-2xl.png';
+    footerLogos.forEach(function(img) {
+      img.removeAttribute('srcset');
+      img.src = resolvedSrc;
+      img.style.setProperty('display', 'block', 'important');
+      img.style.setProperty('visibility', 'visible', 'important');
+      img.style.setProperty('opacity', '1', 'important');
+      img.style.setProperty('height', '40px', 'important');
+      img.style.setProperty('width', 'auto', 'important');
+    });
   }
-  ev.target.reset();
-}</script><script>window.addEventListener('load', function() {
-  var headerLogo = document.querySelector('header.header img, .header img, .logo img');
-  var footerLogos = document.querySelectorAll('.aq-footer img');
-  footerLogos.forEach(function(img) {
-    if (headerLogo && headerLogo.getAttribute('src')) {
-      img.src = headerLogo.getAttribute('src');
-    }
-    img.style.setProperty('display', 'block', 'important');
-    img.style.setProperty('visibility', 'visible', 'important');
-    img.style.setProperty('opacity', '1', 'important');
-  });
-});</script></body></html>
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncFooterLogo);
+  } else {
+    syncFooterLogo();
+  }
+  window.addEventListener('load', syncFooterLogo);
+})();</script></body></html>
