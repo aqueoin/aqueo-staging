@@ -33,4 +33,190 @@
     syncFooterLogo();
   }
   window.addEventListener('load', syncFooterLogo);
+})();
+
+    <script>
+(function() {
+  /* 1. Inject the Thank You modal globally on every page */
+  function ensureThankYouModal() {
+    if (document.getElementById('aq-thankyou-modal')) return;
+
+    var modal = document.createElement('div');
+    modal.id = 'aq-thankyou-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.style.cssText = 'display:none; position:fixed; inset:0; z-index:9999999; background:rgba(5,14,29,0.80); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:20px;';
+
+    modal.innerHTML = ''
+      + '<div style="background:#FFFFFF; color:#0F172A; max-width:480px; width:100%; border-radius:16px; padding:34px 30px; box-shadow:0 24px 60px rgba(5,14,29,0.40); text-align:center; position:relative; border-top:5px solid #00A3E0; font-family:inherit;">'
+      +   '<button type="button" id="aq-ty-close-x" aria-label="Close" style="position:absolute; top:14px; right:16px; background:transparent; border:none; font-size:24px; line-height:1; color:#64748B; cursor:pointer;">&times;</button>'
+      +   '<div style="width:58px; height:58px; margin:0 auto 18px auto; border-radius:50%; background:#E0F7FA; color:#00838F; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:bold;">&#10003;</div>'
+      +   '<span style="display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#0052CC; margin-bottom:8px;">Inquiry Received</span>'
+      +   '<h3 style="margin:0 0 12px 0; font-size:1.55rem; line-height:1.2; color:#050E1D;">Thank You For Reaching Out</h3>'
+      +   '<p id="aq-ty-body" style="margin:0 0 22px 0; font-size:0.98rem; line-height:1.65; color:#475569;">We have received your message and sent a copy to <strong>hello@aqueo.in</strong>. Our team will reach back to you shortly.</p>'
+      +   '<div id="aq-ty-fallback-wrap" style="display:none; margin-bottom:18px; padding:12px; background:#F1F5F9; border-radius:8px; font-size:13px; color:#334155;">'
+      +     'If your network blocked instant web delivery, <a id="aq-ty-mailto" href="mailto:hello@aqueo.in" style="color:#0052CC; font-weight:700; text-decoration:underline;">click here to send via your email app</a>.'
+      +   '</div>'
+      +   '<button type="button" id="aq-ty-close-btn" style="width:100%; padding:13px 20px; border:none; border-radius:8px; background:#0052CC; color:#FFFFFF; font-weight:700; font-size:14.5px; cursor:pointer;">Done</button>'
+      + '</div>';
+
+    document.body.appendChild(modal);
+
+    document.getElementById('aq-ty-close-x').addEventListener('click', closeThankYouModal);
+    document.getElementById('aq-ty-close-btn').addEventListener('click', closeThankYouModal);
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeThankYouModal();
+    });
+  }
+
+  function openThankYouModal(visitorName, isFallback, mailtoLink) {
+    ensureThankYouModal();
+    var modal = document.getElementById('aq-thankyou-modal');
+    var bodyEl = document.getElementById('aq-ty-body');
+    var fallbackWrap = document.getElementById('aq-ty-fallback-wrap');
+    var mailtoEl = document.getElementById('aq-ty-mailto');
+
+    var safeName = visitorName ? visitorName.replace(/[<>&"]/g, '') : '';
+    var greeting = safeName ? 'Thank you, <strong>' + safeName + '</strong>. ' : 'Thank you for reaching out. ';
+
+    if (bodyEl) {
+      bodyEl.innerHTML = greeting + 'We have received your inquiry at <strong>hello@aqueo.in</strong>. Our team will review your requirement and reach back to you shortly.';
+    }
+    if (fallbackWrap && mailtoEl) {
+      if (isFallback && mailtoLink) {
+        mailtoEl.setAttribute('href', mailtoLink);
+        fallbackWrap.style.display = 'block';
+      } else {
+        fallbackWrap.style.display = 'none';
+      }
+    }
+    modal.style.setProperty('display', 'flex', 'important');
+  }
+
+  function closeThankYouModal() {
+    var modal = document.getElementById('aq-thankyou-modal');
+    if (modal) modal.style.setProperty('display', 'none', 'important');
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeThankYouModal();
+  });
+
+  /* 2. Collect fields from ANY form on ANY page */
+  function collectFormFields(form) {
+    var data = {};
+    var visitorName = '';
+    var summaryLines = [];
+    var fields = form.querySelectorAll('input, select, textarea');
+
+    fields.forEach(function(el) {
+      if (!el.name && !el.id) return;
+      if (el.type === 'hidden' || el.type === 'submit' || el.type === 'button') return;
+      var val = (el.value || '').trim();
+      if (!val) return;
+
+      var labelText = '';
+      if (el.id) {
+        var lbl = form.querySelector('label[for="' + el.id + '"]');
+        if (lbl) labelText = lbl.textContent.replace('*', '').trim();
+      }
+      var key = labelText || el.name || el.id;
+      data[key] = val;
+      summaryLines.push(key + ': ' + val);
+
+      if (!visitorName && /name/i.test(key) && !/company|org/i.test(key)) {
+        visitorName = val;
+      }
+    });
+
+    return { data: data, visitorName: visitorName, summaryLines: summaryLines };
+  }
+
+  /* 3. Intercept ALL form submissions across the entire website */
+  function processAnyForm(form) {
+    var collected = collectFormFields(form);
+    var submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+    var statusBox = form.querySelector('[role="status"], #aq_c_status, #aq_q_status');
+    var origBtnText = submitBtn ? (submitBtn.textContent || submitBtn.value) : '';
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      if (submitBtn.tagName === 'BUTTON') submitBtn.textContent = 'Sending...';
+    }
+
+    var payload = Object.assign({}, collected.data, {
+      _subject: 'New Website Inquiry' + (collected.visitorName ? ' from ' + collected.visitorName : '') + ' — Aqueo',
+      _template: 'table',
+      _captcha: 'false',
+      Page_URL: window.location.href
+    });
+
+    var mailtoSubject = encodeURIComponent('Aqueo Website Inquiry' + (collected.visitorName ? ' — ' + collected.visitorName : ''));
+    var mailtoBody = encodeURIComponent(collected.summaryLines.join('\n') + '\n\nSubmitted from: ' + window.location.href);
+    var mailtoLink = 'mailto:hello@aqueo.in?subject=' + mailtoSubject + '&body=' + mailtoBody;
+
+    fetch('https://formsubmit.co/ajax/hello@aqueo.in', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(function(res) {
+      if (!res.ok) throw new Error('Form endpoint error');
+      return res.json();
+    })
+    .then(function() {
+      if (statusBox) {
+        statusBox.style.display = 'block';
+        statusBox.style.background = '#ECFDF5';
+        statusBox.style.color = '#065F46';
+        statusBox.innerHTML = 'Thank you! Your inquiry has been sent to <strong>hello@aqueo.in</strong>. We shall reach back soon.';
+      }
+      openThankYouModal(collected.visitorName, false, mailtoLink);
+      form.reset();
+    })
+    .catch(function() {
+      if (statusBox) {
+        statusBox.style.display = 'block';
+        statusBox.style.background = '#EFF6FF';
+        statusBox.style.color = '#1E3A8A';
+        statusBox.innerHTML = 'Thank you for reaching out! <a href="' + mailtoLink + '" style="color:#0052CC; font-weight:700; text-decoration:underline;">Click here to complete via your email app</a> or call <strong>+91 93158 51 527</strong>.';
+      }
+      openThankYouModal(collected.visitorName, true, mailtoLink);
+    })
+    .finally(function() {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        if (submitBtn.tagName === 'BUTTON') submitBtn.textContent = origBtnText || 'Submit';
+      }
+    });
+  }
+
+  /* Global capture listener catches every form on Home, Contact, or any other page */
+  document.addEventListener('submit', function(e) {
+    var form = e.target;
+    if (!form || form.tagName !== 'FORM') return;
+    /* Ignore search forms if any exist */
+    if (form.classList.contains('search__form') || form.getAttribute('role') === 'search') return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    processAnyForm(form);
+  }, true);
+
+  /* Compatibility shim if any older page still calls aqQuoteSubmit or aqHandleContactSubmit */
+  window.aqQuoteSubmit = function(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (e && e.target && e.target.tagName === 'FORM') processAnyForm(e.target);
+    return false;
+  };
+  window.aqHandleContactSubmit = window.aqQuoteSubmit;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ensureThankYouModal);
+  } else {
+    ensureThankYouModal();
+  }
 })();</script></body></html>
