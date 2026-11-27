@@ -10,57 +10,6 @@
                 }, false);
             }
         }</script><script>(function() {
-  function fixFooterLogo() {
-    var footer = document.querySelector('footer.aq-footer, footer');
-    if (!footer) return;
-
-    var firstCol = footer.querySelector('.aq-footer-grid > div:first-child') || footer.querySelector('div');
-    if (!firstCol) return;
-
-    var img = firstCol.querySelector('img');
-    var fallbackId = 'aq-footer-logo-fallback';
-
-    function renderFallback() {
-      if (document.getElementById(fallbackId)) return;
-      var brand = document.createElement('div');
-      brand.id = fallbackId;
-      brand.style.cssText = 'margin-bottom: 14px; line-height: 1;';
-      brand.innerHTML = ''
-        + '<span style="display:inline-flex; align-items:center; gap:6px; font-family:\'Plus Jakarta Sans\', system-ui, -apple-system, sans-serif; font-size:1.75rem; font-weight:800; letter-spacing:-0.04em; color:#FFFFFF;">'
-        +   'aqueo<span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#00D8FF;"></span>'
-        + '</span>'
-        + '<span style="display:block; font-size:10px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#00A3E0; margin-top:4px;">Water Infrastructure</span>';
-      firstCol.insertBefore(brand, firstCol.firstChild);
-    }
-
-    if (!img) {
-      renderFallback();
-      return;
-    }
-
-    img.style.setProperty('max-height', '42px', 'important');
-    img.style.setProperty('width', 'auto', 'important');
-    img.style.setProperty('display', 'block', 'important');
-    img.style.setProperty('margin-bottom', '14px', 'important');
-
-    function handleBroken() {
-      img.style.setProperty('display', 'none', 'important');
-      renderFallback();
-    }
-
-    img.addEventListener('error', handleBroken);
-    if (img.complete && img.naturalWidth === 0) {
-      handleBroken();
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', fixFooterLogo);
-  } else {
-    fixFooterLogo();
-  }
-  window.addEventListener('load', fixFooterLogo);
-})();</script><script>(function() {
   function syncFooterLogo() {
     var headerLogo = document.querySelector('header.header img, .header img, .logo img');
     var footerLogos = document.querySelectorAll('.aq-footer img');
