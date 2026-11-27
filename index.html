@@ -332,19 +332,11 @@
     var root = getSiteRoot();
     var slugMap = {
       'zincalume-tanks': 'zincalume-tanks.html',
-      'zincalume-tanks.html': 'zincalume-tanks.html',
-      'smc-frp-tanks': 'smc-frp-tanks.html',
-      'smc-frp-tanks.html': 'smc-frp-tanks.html',
-      'ms-frp-tanks': 'ms-frp-tanks.html',
-      'ms-frp-tanks.html': 'ms-frp-tanks.html',
-      'water-treatment-plant': 'water-treatment-plant.html',
-      'water-treatment-plant.html': 'water-treatment-plant.html',
-      'sewage-treatment-plant': 'sewage-treatment-plant.html',
-      'sewage-treatment-plant.html': 'sewage-treatment-plant.html',
-      'sewage-treatment-plants': 'sewage-treatment-plant.html',
-      'sewage-treatment-plants.html': 'sewage-treatment-plant.html',
+      'smc-frp-tanks': 'smcfrp-tanks.html',
+      'ms-frp-tanks': 'msfrp-tanks.html',
+      'water-treatment-plant': 'water-treatment-plants.html',    
+      'sewage-treatment-plant': 'sewage-treatment-plants.html',
       'industrial-ro': 'industrial-ro.html',
-      'industrial-ro.html': 'industrial-ro.html'
     };
 
     var footerLinks = document.querySelectorAll('footer a[href], .aq-footer a[href]');
@@ -463,20 +455,20 @@
 
   var orderedPages = [
     'zincalume-tanks.html',
-    'smc-frp-tanks.html',
-    'ms-frp-tanks.html',
-    'water-treatment-plant.html',
-    'sewage-treatment-plant.html',
+    'smcfrp-tanks.html',
+    'msfrp-tanks.html',
+    'water-treatment-plants.html',
+    'sewage-treatment-plants.html',
     'industrial-ro.html'
   ];
 
   function matchByKeyword(el) {
     var text = ((el.textContent || '') + ' ' + (el.getAttribute('href') || '')).toLowerCase();
     if (text.indexOf('zincalume') !== -1) return 'zincalume-tanks.html';
-    if (text.indexOf('smc') !== -1 || text.indexOf('frp') !== -1 && text.indexOf('ms') === -1) return 'smc-frp-tanks.html';
-    if (text.indexOf('ms') !== -1 && (text.indexOf('frp') !== -1 || text.indexOf('tank') !== -1)) return 'ms-frp-tanks.html';
-    if (text.indexOf('wtp') !== -1 || (text.indexOf('water') !== -1 && text.indexOf('treatment') !== -1)) return 'water-treatment-plant.html';
-    if (text.indexOf('stp') !== -1 || text.indexOf('sewage') !== -1) return 'sewage-treatment-plant.html';
+    if (text.indexOf('smc') !== -1 || text.indexOf('frp') !== -1 && text.indexOf('ms') === -1) return 'smcfrp-tanks.html';
+    if (text.indexOf('ms') !== -1 && (text.indexOf('frp') !== -1 || text.indexOf('tank') !== -1)) return 'msfrp-tanks.html';
+    if (text.indexOf('wtp') !== -1 || (text.indexOf('water') !== -1 && text.indexOf('treatment') !== -1)) return 'water-treatment-plants.html';
+    if (text.indexOf('stp') !== -1 || text.indexOf('sewage') !== -1) return 'sewage-treatment-plants.html';
     if (text.indexOf('ro') !== -1 || text.indexOf('osmosis') !== -1) return 'industrial-ro.html';
     return null;
   }
