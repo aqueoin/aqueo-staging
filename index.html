@@ -454,4 +454,81 @@
     initAll();
   }
   window.addEventListener('load', initAll);
+})();</script><script>(function() {
+  function getPageDir() {
+    var loc = window.location.pathname || '/';
+    if (loc.endsWith('/')) return loc;
+    return loc.substring(0, loc.lastIndexOf('/') + 1);
+  }
+
+  var orderedPages = [
+    'zincalume-tanks.html',
+    'smc-frp-tanks.html',
+    'ms-frp-tanks.html',
+    'water-treatment-plant.html',
+    'sewage-treatment-plant.html',
+    'industrial-ro.html'
+  ];
+
+  function matchByKeyword(el) {
+    var text = ((el.textContent || '') + ' ' + (el.getAttribute('href') || '')).toLowerCase();
+    if (text.indexOf('zincalume') !== -1) return 'zincalume-tanks.html';
+    if (text.indexOf('smc') !== -1 || text.indexOf('frp') !== -1 && text.indexOf('ms') === -1) return 'smc-frp-tanks.html';
+    if (text.indexOf('ms') !== -1 && (text.indexOf('frp') !== -1 || text.indexOf('tank') !== -1)) return 'ms-frp-tanks.html';
+    if (text.indexOf('wtp') !== -1 || (text.indexOf('water') !== -1 && text.indexOf('treatment') !== -1)) return 'water-treatment-plant.html';
+    if (text.indexOf('stp') !== -1 || text.indexOf('sewage') !== -1) return 'sewage-treatment-plant.html';
+    if (text.indexOf('ro') !== -1 || text.indexOf('osmosis') !== -1) return 'industrial-ro.html';
+    return null;
+  }
+
+  function wireFooterProductLinks() {
+    var baseDir = getPageDir();
+    var footers = document.querySelectorAll('footer.aq-footer, footer');
+
+    footers.forEach(function(footer) {
+      // Find the column whose heading says "Products"
+      var productListLinks = [];
+      var cols = footer.querySelectorAll('.aq-footer-grid > div, footer > div > div > div');
+
+      for (var i = 0; i < cols.length; i++) {
+        var heading = cols[i].querySelector('h4, h3, h2');
+        if (heading && (heading.textContent || '').toLowerCase().indexOf('product') !== -1) {
+          productListLinks = Array.prototype.slice.call(cols[i].querySelectorAll('a'));
+          break;
+        }
+      }
+
+      if (!productListLinks.length) {
+        productListLinks = Array.prototype.slice.call(footer.querySelectorAll('ul a'));
+      }
+
+      productListLinks.forEach(function(a, idx) {
+        var target = matchByKeyword(a);
+        if (!target && idx < orderedPages.length) {
+          target = orderedPages[idx];
+        }
+        if (!target) return;
+
+        var fullUrl = baseDir + target;
+        a.setAttribute('href', fullUrl);
+
+        if (!a.dataset.aqProductBound) {
+          a.dataset.aqProductBound = '1';
+          a.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+            window.location.assign(fullUrl);
+          }, true);
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wireFooterProductLinks);
+  } else {
+    wireFooterProductLinks();
+  }
+  window.addEventListener('load', wireFooterProductLinks);
 })();</script></body></html>
