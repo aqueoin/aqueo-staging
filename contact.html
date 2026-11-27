@@ -119,33 +119,6 @@
                 }, false);
             }
         }</script><script>(function() {
-  function syncFooterLogo() {
-    var headerLogo = document.querySelector('header.header img, .header img, .logo img');
-    var footerLogos = document.querySelectorAll('.aq-footer img');
-    if (!headerLogo || !footerLogos.length) return;
-
-    var resolvedSrc = headerLogo.currentSrc || headerLogo.src || '/aqueo-staging/media/website/responsive/aqueo-logo-2xl.png';
-    footerLogos.forEach(function(img) {
-      img.removeAttribute('srcset');
-      img.src = resolvedSrc;
-      img.style.setProperty('display', 'block', 'important');
-      img.style.setProperty('visibility', 'visible', 'important');
-      img.style.setProperty('opacity', '1', 'important');
-      img.style.setProperty('height', '40px', 'important');
-      img.style.setProperty('width', 'auto', 'important');
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', syncFooterLogo);
-  } else {
-    syncFooterLogo();
-  }
-  window.addEventListener('load', syncFooterLogo);
-})();
-<script>
-<script>
-(function() {
   function getHomeUrl() {
     var path = window.location.pathname || '/';
     if (path.indexOf('/aqueo-staging/') === 0) {
